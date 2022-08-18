@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        <input type="email" value="feli_rl97@test.com" id="email">
+        <input type="password" value="qs90qrwu" id="password">
+        <button type="submit">Acceder</button>
+    </form>
+
+    <script>
+        const form= document.getElementById('form');
+        const password = document.getElementById('password');
+        const email = document.getElementById('email');
+
+        form.addEventListener("submit", async  (e) =>{
+            e.preventDefault();
+            try {
+                 const res = await fetch("/api/v1/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-type" : "application/json"
+                    },
+                    body:JSON.stringify({
+                    email: email.value ,
+                    password:password.value,
+                }),
+
+                });
+                console.log(res.ok, res.status);
+
+                const data = await res.json()
+                console.log(data);
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    </script>
+</body>
+</html>
